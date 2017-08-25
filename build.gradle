@@ -1,0 +1,30 @@
+allprojects {
+    group 'com.github'
+    version '1.0-SNAPSHOT'
+
+    apply plugin: 'idea'
+}
+
+subprojects {
+    apply plugin: 'java'
+
+    sourceCompatibility = 1.8
+
+    repositories {
+        mavenLocal()
+        maven {
+            url = 'http://maven.aliyun.com/nexus/content/groups/public/'
+        }
+        mavenCentral()
+    }
+
+    ext {
+        groovyVersion = '2.4.12'
+    }
+
+    dependencies {
+        compile(
+                "org.codehaus.groovy:groovy-all:${groovyVersion}"
+        )
+    }
+}

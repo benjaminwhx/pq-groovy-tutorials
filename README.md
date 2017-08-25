@@ -1,2 +1,2 @@
 # pq-groovy-tutorials
-groovy学习
+groovy study tutorials
