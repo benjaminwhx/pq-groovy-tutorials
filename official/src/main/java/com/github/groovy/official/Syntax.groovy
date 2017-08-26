@@ -122,3 +122,154 @@ assert multilineSlashy.contains('\n')
 
 // 下面编译都过不去
 //assert '' == //
+
+/**
+ * 4.7 $/字符串，转义需要使用$字符
+ * 打印/字符串，需要使用$进行转义：$/
+ * 打印$/字符串，$$$/
+ * 打印/$字符串，$/$$
+ */
+def name2 = 'Guillaume'
+def date = 'April, 1st'
+def dollarSlashy = $/
+    Hello $name2,
+    today we're ${date}.
+
+    $ dollar sign
+    $$ escaped dollar sign
+    \ backslash
+    / forward slash
+    $/ escaped forward slash
+    $$$/ escaped opening dollar slashy
+    $/$$ escaped closing dollar slashy
+/$
+
+assert [
+        'Guillaume',
+        'April, 1st',
+        '$ dollar sign',
+        '\\ backslash',
+        '/ forward slash',
+        '/ escaped forward slash',
+        '$/ escaped opening dollar slashy',
+        '/$ escaped closing dollar slashy'
+].every { dollarSlashy.contains(it) }
+
+// 4.9 字符，我们可以明确的指定它是一个字符
+char c1 = 'A'
+assert c1 instanceof Character
+
+def c2 = 'B' as char
+assert c2 instanceof Character
+
+def c3 = (char) 'C'
+assert c3 instanceof Character
+
+// 5.1
+def a = 1
+def na = -1
+assert a instanceof Integer
+assert na instanceof Integer
+
+// Integer.MAX_VALUE
+def b = 2147483647
+// Integer.MIN_VALUE
+def nb = -2147483648
+assert b instanceof Integer
+assert nb instanceof Integer
+
+// Integer.MAX_VALUE + 1
+def c = 2147483648
+// Integer.MIN_VALUE - 1
+def nc = -2147483649
+assert c instanceof Long
+assert nc instanceof Long
+
+// Long.MAX_VALUE
+def d = 9223372036854775807
+// Long.MIN_VALUE
+def nd = -9223372036854775808
+assert d instanceof Long
+assert nd instanceof Long
+
+// Long.MAX_VALUE + 1
+def e = 9223372036854775808
+// Long.MIN_VALUE - 1
+def ne = -9223372036854775809
+assert e instanceof BigInteger
+assert ne instanceof BigInteger
+
+// 5.4 数字类型后缀
+assert 42I == new Integer('42')
+assert 42i == new Integer('42')
+assert 123L == new Long('123')
+assert 2147483648 == new Long('2147483648')
+assert 456G == new BigInteger('456')
+assert 456g == new BigInteger('456')
+assert 123.45 == new BigDecimal('123.45')
+assert 1.200065D == new Double('1.200065')
+assert 1.234F == new Float('1.234')
+assert 0b1111L.class == Long
+assert 0xFFi.class == Integer
+assert 034G.class == BigInteger
+
+// 7 List
+def arrayList = [1, 2, 3]
+assert arrayList instanceof ArrayList
+def linkedList = [2, 3, 4] as LinkedList
+assert linkedList instanceof LinkedList
+LinkedList otherLinked = [3, 4, 5]
+assert otherLinked instanceof LinkedList
+
+def letters = ['a', 'b', 'c', 'd']
+assert letters[0] == 'a'
+assert letters[1] == 'b'
+assert letters[-1] == 'd'
+assert letters[-2] == 'c'
+
+letters[2] = 'C'
+assert letters[2] == 'C'
+
+letters << 'e'
+assert letters[4] == 'e'
+assert letters[-1] == 'e'
+
+assert letters[1, 3] == ['b', 'd']
+assert letters[2..4] == ['C', 'd', 'e']
+
+letters[0, 1] = ['A', 'B']
+assert letters[0, 1] == ['A', 'B']
+
+def multi = [[0, 1], [2, 3]]
+assert multi[1][0] == 2
+
+// 8 Arrays
+String[] arrStr = ['Ananas', 'Banana', 'Kiwi']
+assert arrStr instanceof String[]
+assert !(arrStr instanceof List)
+
+def numArr = [1, 2, 3] as int[]
+assert numArr instanceof int[]
+assert numArr.size() == 3
+
+// 9 Maps
+def colors = [red: '#FF0000', green: '#00FF00', blue: '#0000FF']
+assert colors['red'] == '#FF0000'
+assert colors.green == '#00FF00'
+
+colors['pink'] = '#FF00FF'
+colors.yellow = '#FFFF00'
+assert colors.pink == '#FF00FF'
+assert colors['yellow'] == '#FFFF00'
+
+assert colors instanceof LinkedHashMap
+
+def mapKey = 'name'
+def person2 = [mapKey: 'Guillaume']
+assert !person2.containsKey('name')
+assert person2.containsKey('mapKey')
+
+// ()来使用外部定义的key
+person2 = [(mapKey): 'Guillaume']
+assert person2.containsKey('name')
+assert !person2.containsKey('mapKey')
