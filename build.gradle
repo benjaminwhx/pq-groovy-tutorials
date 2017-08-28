@@ -20,11 +20,13 @@ subprojects {
 
     ext {
         groovyVersion = '2.4.12'
+        gradleVersion = '3.3'
     }
 
     dependencies {
         compile(
-                "org.codehaus.groovy:groovy-all:${groovyVersion}"
+                "org.codehaus.groovy:groovy-all:$groovyVersion",
+                "org.gradle:gradle-core:$gradleVersion"
         )
     }
 }
