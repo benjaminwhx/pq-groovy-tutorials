@@ -30,3 +30,14 @@ subprojects {
         )
     }
 }
+
+def getGitDescribe() {
+    def stdoutput = new ByteArrayOutputStream()
+    exec {
+        commandLine 'git', 'describe', '--tags', '--always'
+        standardOutput = stdoutput
+    }
+    return stdoutput.toString().trim()
+}
+
+//println getGitDescribe()
